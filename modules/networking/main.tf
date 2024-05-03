@@ -65,7 +65,6 @@ resource "aws_eip" "eip_for_nat" {
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.eip_for_nat.id
   subnet_id = aws_subnet.public_subnets[0].id
-  # depends_on = [ aws_eip.eip_for_nat, aws_subnet.public_subnets ]
   tags = {
     Name = "${var.tag}-nat"
     Owner = "${var.tag}"
@@ -86,7 +85,6 @@ resource "aws_route_table" "private_rt" {
 }
 
 resource "aws_route_table_association" "private_rt_association" {
-  # depends_on = [ aws_subnet.public_subnets ]
   route_table_id = aws_route_table.private_rt.id
   count = length(var.private_subnets_cidr)
   subnet_id      = aws_subnet.private_subnets[count.index].id

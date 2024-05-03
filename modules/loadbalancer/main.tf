@@ -2,7 +2,6 @@ resource "aws_lb" "alb" {
   load_balancer_type = "application"
   security_groups    = var.sg_for_alb
   subnets            = var.subnets_for_alb
-#   target_type = instance
     tags = {
     Name = "${var.tag}-alb"
     Owner = "${var.tag}"
@@ -12,7 +11,6 @@ resource "aws_lb" "alb" {
 resource "aws_lb_target_group" "alb_target_group" {
   port = 80
   protocol = "HTTP"
-  # target_type = "alb"
   health_check {
     enabled = true
     port = 80
